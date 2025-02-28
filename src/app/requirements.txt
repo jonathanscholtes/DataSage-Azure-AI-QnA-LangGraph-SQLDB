@@ -1,0 +1,10 @@
+streamlit
+pyodbc
+pymssql
+pillow
+python-dotenv==1.0.0
+langchain-openai
+langchain
+langgraph 
+langchain-community
+pandas
