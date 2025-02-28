@@ -6,7 +6,7 @@
 
 # DataSage: Azure AI Question Answering System over SQL Data with LangGraph
 
-![diagram](./media/logo.png| width=150px)
+![diagram](./media/logo_small.png)
 
 
 ## Overview
@@ -64,8 +64,8 @@ Follow these steps to set up and deploy the solution:
 Begin by cloning the repository to your local machine using the following command:
 
 ```bash
-git clone https://github.com/jonathanscholtes/Azure-AI-RAG-Architecture-React-FastAPI-and-Cosmos-DB-Vector-Store.git
-cd Azure-AI-RAG-Architecture-React-FastAPI-and-Cosmos-DB-Vector-Store
+git clone https://github.com/jonathanscholtes/DataSage-Azure-AI-QnA-LangGraph-SQLDB.git
+cd DataSage-Azure-AI-QnA-LangGraph-SQLDB
 ```
 
 ### 2. Deploy the Solution Using Bicep:  
@@ -81,8 +81,58 @@ Then, use the following PowerShell command to deploy the solution. Make sure to 
 ```bash
 .\deploy.ps1 -Subscription '[Subscription Name]' -Location 'eastus2' -SQLAdminUser '[User for SQL DB]' -SQLPassword '[Password to Create for SQL DB]'
 ```
+This script will provision the necessary resources in your Azure subscription according to the specified parameters. The deployment may take upto **20 minutes** to provision all Azure resources.
+
+### 3. Allow Client IP Access to Azure SQL DB
+After deployment, you must grant your local environment access to the Azure SQL Database to run the Streamlit application. 
+To do this, add your client IP address to the database firewall rules.
+
+- Log in to the Azure portal.
+- Navigate to your Azure SQL database.
+- Click on **Set Server firewall**
+- Add your current client IP address to the list of allowed addresses.
+
+![firewall](./media/sqldb_firewall.png)
+
+![clientid](./media/sqldb_network_rule.png)
 
 
+### 4. Configure Environment Variables
+
+To run DataSage, you need to create a .env file and populate it with the required environment variables. Follow these steps:
+
+1. In the Streamlit project under [src/app](src/app), create a new file named .env.
+2. Add the following variables and update them with your Azure service details:
+
+```
+AZURE_OPENAI_API_KEY="Key from deployed Azure AI Service"
+AZURE_OPENAI_ENDPOINT="Endpoint from deployed Azure AI Service"
+AZURE_OPENAI_MODEL="gpt-4o"
+AZURE_OPENAI_API_VERSION="2024-08-01-preview"
+AZURE_SQL_CONNECTION_STRING="mssql+pymssql://sqlAdmin:sqlPassword@sql-agentqna-demo-[randomnumber].database.windows.net:1433/sqldb-agentqna"
+AZURE_SQL_DATABASE_SCHEMA="SalesLT"
+```
+
+### 5. Set Up and Run the Streamlit Application
+
+Navigate to the Streamlit application directory [src/app](src/app) and follow these steps:
+
+- Create a Python Virtual Environment:
+
+```
+python -m venv venv
+```
+- Activate the Virtual Environment and Install Dependencies:
+```
+venv\Scripts\activate # On macOS/Linux, use `source venv/bin/activate`
+python -m pip install -r requirements.txt
+```
+- Start DataSage:
+```
+streamlit run app.py
+```
+
+This will launch the application in your browser, allowing you to interact with the SQL database using natural language queries.
 
 ## Clean-Up
 

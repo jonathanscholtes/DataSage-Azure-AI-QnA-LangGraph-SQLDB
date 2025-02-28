@@ -1,14 +1,12 @@
 from .init import llm, db
 from langgraph.graph import MessagesState
 from langgraph.graph import StateGraph, END,START
-from langchain_core.output_parsers import StrOutputParser
 from langchain.prompts import PromptTemplate
 from langchain import hub
 from langchain_community.tools.sql_database.tool import QuerySQLDatabaseTool
 import pandas as pd
-import numpy as np
 from typing_extensions import TypedDict, Annotated
-from model.output import DataFrameOutput
+from model.output import DataFrameOutput, DataFrameMetadata
 from langchain_core.output_parsers import JsonOutputParser
 from langchain.prompts import PromptTemplate
 from langchain.schema import AIMessage
@@ -25,7 +23,9 @@ class AgentState(MessagesState):
     query: str
     result: str
     dataframe: pd.DataFrame
+    metadata: DataFrameMetadata
     answer: str
+    visual: str
 
 
 class RelationalDataSystem():
@@ -98,16 +98,77 @@ class RelationalDataSystem():
         # Convert response to Pandas DataFrame
         df = pd.DataFrame(parsed_response.data, columns=parsed_response.columns)
 
-        return {"dataframe": df}
+         # Collect metadata
+        metadata = DataFrameMetadata(
+            columns=df.columns.tolist(),
+            dtypes=df.dtypes.astype(str).tolist(),
+            sample_data=df.head(3).to_dict(orient="records")
+        )
+
+
+        return {"dataframe": df, "metadata":metadata}
+    
+
+    def suggest_visualization(self,state: AgentState):
+        """Uses AI to suggest the best visualization type based on the DataFrame structure."""
+        
+        metadata = state["metadata"]
+
+        prompt = f"""
+        You are an AI assistant that helps in visualizing data in a Streamlit application.
+
+        Below is metadata about a Pandas DataFrame, including column names, data types, and sample values:
+
+        ### DataFrame Metadata:
+        - Columns: {metadata.columns}
+        - Data Types: {metadata.dtypes}
+        - Sample Data: {metadata.sample_data}
+
+        Your task:
+        1. Determine the best visualization type (e.g., bar chart, line chart, scatter plot, pie chart) **based strictly on the data's structure**.
+        2. Generate **valid, executable Python code** that creates the visualization in Streamlit.
+        3. The output **must be plain Python code only**—no explanations, no Markdown, and no additional text.
+        4. Ensure that all column names used in the code exist in the provided metadata.
+
+        **Output Format (Example)**:
+        ```
+        import streamlit as st
+        import pandas as pd
+
+        # Assuming df is already defined
+        st.bar_chart(df[["CustomerName", "TotalDue"]].set_index("CustomerName"))
+        ```
+
+        **Rules to Follow:**
+        - Do **not** include triple backticks (` ``` `).
+        - Do **not** use Markdown formatting.
+        - The generated code **must be syntactically correct and executable** without modifications.
+        - If the dataset lacks numerical values, default to `st.table(df)` instead.
+
+        **Return only the Python code.**
+        """
+
+        response = llm.invoke(prompt)
+
+        response_text = response.content.strip("```").replace("python\n", "").strip()
+
+        return {"visual": response_text}
+
 
     def generate_answer(self,state: AgentState):
         """Answer question using retrieved information as context."""
         prompt = (
-            "Given the following user question, corresponding SQL query, "
-            "and SQL result, answer the user question.\n\n"
-            f'Question: {state["question"]}\n'
-            f'SQL Query: {state["query"]}\n'
-            f'SQL Result: {state["result"]}'
+            f"""You are an AI assistant that answers user questions based on SQL query results. 
+                Given the user's question, the corresponding SQL query, and its result, generate a concise and well-structured summary using the retrieved data.
+
+            ### Question: 
+            {state["question"]}
+
+            ### SQL Query: 
+            {state["query"]}
+
+            ### SQL Result: 
+            {state["result"]}"""
         )
         response = llm.invoke(prompt)
         return {"answer": response.content}
@@ -122,12 +183,16 @@ class RelationalDataSystem():
         workflow.add_node("execute_query", self.execute_query)
         workflow.add_node("generate_answer", self.generate_answer)
         workflow.add_node("generate_dataframe", self.generate_dataframe)
+        workflow.add_node("suggest_visualization", self.suggest_visualization)
 
         workflow.add_edge(START, "write_query")
         workflow.add_edge("write_query", "execute_query")
         workflow.add_edge("execute_query", "generate_answer")
         workflow.add_edge("execute_query", "generate_dataframe")
+        workflow.add_edge("generate_dataframe", "suggest_visualization")
+
         workflow.add_edge("generate_answer", END)
+        workflow.add_edge("suggest_visualization", END)
 
         
         graph = workflow.compile()
