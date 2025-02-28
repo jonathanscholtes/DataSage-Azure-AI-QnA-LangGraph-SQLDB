@@ -45,7 +45,7 @@ with st.sidebar:
 # Add a GitHub icon in the top-right corner
 github_link = """
 <div style="position: fixed; top: 10px; right: 10px;">
-    <a href="https://github.com/jonathanscholtes/Azure-AI-LangGraph-QnA-SQL-DB" target="_blank">
+    <a href="https://github.com/jonathanscholtes/DataSage-Azure-AI-QnA-LangGraph-SQLDB" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" width="30">
     </a>
 </div>
