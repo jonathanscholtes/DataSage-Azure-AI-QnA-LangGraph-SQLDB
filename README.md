@@ -11,11 +11,14 @@
 
 ## Overview
 
-DataSage is a powerful question-answering system over tabular (SQL) data, leveraging Azure AI Foundry, LangGraph, Azure SQL DB, and Streamlit. This project enables users to interact with SQL databases through natural language queries, retrieving precise and contextually relevant answers powered by AI. The project is built off of the LangChain tutorial [Build a Question/Answering system over SQL data](https://python.langchain.com/docs/tutorials/sql_qa/).
+DataSage is a question-answering system over tabular (SQL) data, designed around agent-based workflows that facilitate seamless data exchange between AI agents and the user. It leverages Azure AI Foundry, LangGraph, Azure SQL DB, and Streamlit to enable natural language interactions with SQL databases, retrieving precise and contextually relevant answers powered by AI. The project is built off of the LangChain tutorial [Build a Question/Answering system over SQL data](https://python.langchain.com/docs/tutorials/sql_qa/).
 
-The system integrates LangGraph to orchestrate multi-step workflows, Azure AI Foundry for model inference, and Azure SQL DB for structured data storage and retrieval. The front-end is built using Streamlit, providing an intuitive user experience for querying and exploring results.
+At its core, LangGraph orchestrates a network of AI agents, each responsible for a specific task—query generation, SQL execution, response summarization, and visualization. These agents pass data to one another, ensuring efficient processing before delivering insights to the user.
 
-Additionally, the project includes Bicep scripts for automated deployment of necessary Azure resources, ensuring a seamless and reproducible setup. 
+The system integrates Azure AI Foundry for model inference, Azure SQL DB for structured data storage and retrieval, and Streamlit for an intuitive front-end experience.
+
+Additionally, the project includes Bicep scripts for automated deployment of necessary Azure resources, ensuring a seamless and reproducible setup.
+
 
 ![diagram](./media/largest_orders.png)
 
