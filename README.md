@@ -4,12 +4,20 @@
 > Updates and modifications are being made frequently, which may impact stability or functionality. This notice will be removed once development is complete and the project reaches a stable release.
 
 
-# DataSage: Azure AI Question Answering System over SQL Data with LangGraph
+<div style="display: flex; align-items: center; gap: 20px;">
 
-![diagram](./media/logo_small.png)
+  <div style="flex: 1;">
+    <img src="./media/logo_small.png" alt="DataSage Logo" width="100%">
+  </div>
 
+  <div style="flex: 2;">
+    <h1>DataSage: Azure AI Question Answering System over SQL Data with LangGraph</h1>
+  </div>
+
+</div>
 
 ## Overview
+
 
 DataSage is a powerful question-answering system over tabular (SQL) data, leveraging Azure AI Foundry, LangGraph, Azure SQL DB, and Streamlit. This project enables users to interact with SQL databases through natural language queries, retrieving precise and contextually relevant answers powered by AI. The project is built off of the LangChain tutorial [Build a Question/Answering system over SQL data](https://python.langchain.com/docs/tutorials/sql_qa/).
 
@@ -17,6 +25,7 @@ The system integrates LangGraph to orchestrate multi-step workflows, Azure AI Fo
 
 Additionally, the project includes Bicep scripts for automated deployment of necessary Azure resources, ensuring a seamless and reproducible setup. 
 
+![diagram](./media/largest_orders.png)
 
 ## Key Features
 
@@ -33,6 +42,53 @@ Additionally, the project includes Bicep scripts for automated deployment of nec
 - **Streamlit UI:** A lightweight, interactive interface for querying and visualizing results.
 
 - **Deployment:** Uses  Bicep to provision and configure Azure resources.
+
+---
+
+## Agentic AI and LangGraph
+
+### What is Agentic AI?
+Agentic AI refers to AI systems designed to operate autonomously, making decisions and executing tasks based on structured workflows and dynamic interactions. Unlike traditional machine learning models that simply provide outputs, agentic AI systems can iterate through multi-step processes, leverage different tools, and adapt based on the context of the task.
+
+In the case of DataSage, agentic AI is used to:
+- Understand and interpret user queries.
+- Generate and execute SQL queries dynamically.
+- Analyze retrieved data and summarize it in human-readable responses.
+- Suggest appropriate visualizations based on query results.
+
+### How LangGraph Enhances AI Workflows
+[LangGraph](https://python.langchain.com/docs/langgraph/) is a framework built on top of [LangChain](https://python.langchain.com) that enables graph-based orchestration of AI workflows. Instead of executing tasks in a linear sequence, LangGraph allows for:
+- **Parallel Execution:** Multiple tasks, such as query generation and data visualization, can run simultaneously.
+- **State Management:** Ensures AI agents retain context across multi-step interactions.
+- **Flexible Workflow Design:** Enables complex branching logic, allowing different AI components to collaborate effectively.
+
+In DataSage, LangGraph is used to structure the AI workflow, ensuring smooth transitions between query generation, execution, response synthesis, and visualization. By leveraging LangGraph, DataSage provides a robust and scalable approach to AI-powered SQL interactions.
+
+
+### LangGraph Workflow  
+
+<div style="display: flex; align-items: center; gap: 10px;">
+
+  <div style="flex: 1;">
+    <img src="./media/graph.png" alt="diagram" width="100%">
+  </div>
+
+  <div style="flex: 2;">
+    <p>The diagram illustrates the <strong>LangGraph-based AI workflow</strong> in DataSage for answering SQL queries and generating visualizations:</p>
+
+  1. <strong>Start (`__start__`)</strong> → Initiates the AI-driven SQL query process.  
+  2. <strong>Write Query (`write_query`)</strong> → AI formulates an SQL query from the user’s natural language input.  
+  3. <strong>Execute Query (`execute_query`)</strong> → Runs the query and branches into two parallel paths:  
+     - <strong>Generate Answer (`generate_answer`)</strong> → Summarizes results in a human-readable response.  
+     - <strong>Generate DataFrame (`generate_dataframe`)</strong> → Converts results into a Pandas DataFrame.  
+  4. <strong>Suggest Visualization (`suggest_visualization`)</strong> → AI selects the best visualization type for the data.  
+  5. <strong>End (`__end__`)</strong> → Completes the workflow, returning both <strong>text and visual insights</strong>.  
+
+  </div>
+
+</div>
+
+---
 
 ## Architecture
 
@@ -133,6 +189,11 @@ streamlit run app.py
 ```
 
 This will launch the application in your browser, allowing you to interact with the SQL database using natural language queries.
+
+![diagram](./media/largest_orders.png)
+
+
+---
 
 ## Clean-Up
 
