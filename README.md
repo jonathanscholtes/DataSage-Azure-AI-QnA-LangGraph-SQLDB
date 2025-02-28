@@ -4,20 +4,12 @@
 > Updates and modifications are being made frequently, which may impact stability or functionality. This notice will be removed once development is complete and the project reaches a stable release.
 
 
-<div style="display: flex; align-items: center; gap: 20px;">
+# DataSage: Azure AI Question Answering System over SQL Data with LangGraph
 
-  <div style="flex: 1;">
-    <img src="./media/logo_small.png" alt="DataSage Logo" width="100%">
-  </div>
+![diagram](./media/logo_small.png)
 
-  <div style="flex: 2;">
-    <h1>DataSage: Azure AI Question Answering System over SQL Data with LangGraph</h1>
-  </div>
-
-</div>
 
 ## Overview
-
 
 DataSage is a powerful question-answering system over tabular (SQL) data, leveraging Azure AI Foundry, LangGraph, Azure SQL DB, and Streamlit. This project enables users to interact with SQL databases through natural language queries, retrieving precise and contextually relevant answers powered by AI. The project is built off of the LangChain tutorial [Build a Question/Answering system over SQL data](https://python.langchain.com/docs/tutorials/sql_qa/).
 
@@ -67,26 +59,17 @@ In DataSage, LangGraph is used to structure the AI workflow, ensuring smooth tra
 
 ### LangGraph Workflow  
 
-<div style="display: flex; align-items: center; gap: 10px;">
+![diagram](./media/graph.png)
 
-  <div style="flex: 1;">
-    <img src="./media/graph.png" alt="diagram" width="100%">
-  </div>
+The diagram illustrates the **LangGraph-based AI workflow** in DataSage for answering SQL queries and generating visualizations:  
 
-  <div style="flex: 2;">
-    <p>The diagram illustrates the <strong>LangGraph-based AI workflow</strong> in DataSage for answering SQL queries and generating visualizations:</p>
-
-  1. <strong>Start (`__start__`)</strong> → Initiates the AI-driven SQL query process.  
-  2. <strong>Write Query (`write_query`)</strong> → AI formulates an SQL query from the user’s natural language input.  
-  3. <strong>Execute Query (`execute_query`)</strong> → Runs the query and branches into two parallel paths:  
-     - <strong>Generate Answer (`generate_answer`)</strong> → Summarizes results in a human-readable response.  
-     - <strong>Generate DataFrame (`generate_dataframe`)</strong> → Converts results into a Pandas DataFrame.  
-  4. <strong>Suggest Visualization (`suggest_visualization`)</strong> → AI selects the best visualization type for the data.  
-  5. <strong>End (`__end__`)</strong> → Completes the workflow, returning both <strong>text and visual insights</strong>.  
-
-  </div>
-
-</div>
+1. **Start (`__start__`)** → Initiates the AI-driven SQL query process.  
+2. **Write Query (`write_query`)** → AI formulates an SQL query from the user’s natural language input.  
+3. **Execute Query (`execute_query`)** → Runs the query and branches into two parallel paths:  
+   - **Generate Answer (`generate_answer`)** → Summarizes results in a human-readable response.  
+   - **Generate DataFrame (`generate_dataframe`)** → Converts results into a Pandas DataFrame.  
+4. **Suggest Visualization (`suggest_visualization`)** → AI selects the best visualization type for the data.  
+5. **End (`__end__`)** → Completes the workflow, returning both **text and visual insights**.  
 
 ---
 
