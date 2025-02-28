@@ -6,7 +6,7 @@
 
 # DataSage: Azure AI Question Answering System over SQL Data with LangGraph
 
-![diagram](./media/logo.png){ width=150px }
+![diagram](./media/logo.png| width=150px)
 
 
 ## Overview
