@@ -82,13 +82,13 @@ The architecture of DataSage consists of:
 
 - **Frontend:** Built with Streamlit to provide a simple and effective UI for users to enter queries and visualize results.
 
-- **Backend:** Powered by Python and LangGraph to parse queries, execute SQL commands, and generate responses using AI models.
+- **Backend:** Built with Python and LangGraph, the backend handles query parsing, SQL execution, and AI-driven response generation. This demo features a tightly integrated agent execution within the Streamlit application. For a more scalable and production-ready architecture, consider [Designing a Robust and Secure GenAI RAG Architecture with React, Python FastAPI, and Azure](https://github.com/jonathanscholtes/Azure-AI-RAG-Architecture-React-FastAPI-and-Cosmos-DB-Vector-Store)
 
 - **Database:** Utilizes Azure SQL DB for storing and retrieving structured data.
 
 - **AI Processing:** Azure AI Foundry processes and enhances the natural language interaction and response generation.
 
-- **Infrastructure Automation:** Python and Bicep scripts deploy and configure required Azure resources.
+- **Infrastructure Deployment:** Powershell and Bicep scripts deploy and configure required Azure resources.
 
 
 ## Requirements
@@ -144,7 +144,7 @@ To do this, add your client IP address to the database firewall rules.
 To run DataSage, you need to create a .env file and populate it with the required environment variables. Follow these steps:
 
 1. In the Streamlit project under [src/app](src/app), create a new file named .env.
-2. Add the following variables and update them with your Azure service details:
+2. Add the following variables and update them with your Azure service details (replace the placeholders with your Azure SQL DB username, password and Azure AI Service endpoint details):
 
 ```
 AZURE_OPENAI_API_KEY="Key from deployed Azure AI Service"
