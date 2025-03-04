@@ -6,7 +6,7 @@ from langchain import hub
 from langchain_community.tools.sql_database.tool import QuerySQLDatabaseTool
 import pandas as pd
 from typing_extensions import TypedDict, Annotated
-from model.output import DataFrameOutput, DataFrameMetadata
+from model.data import DataFrameOutput, DataFrameMetadata
 from langchain_core.output_parsers import JsonOutputParser
 from langchain.prompts import PromptTemplate
 from langchain.schema import AIMessage

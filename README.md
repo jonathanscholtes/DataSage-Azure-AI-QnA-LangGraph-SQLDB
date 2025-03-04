@@ -80,15 +80,17 @@ The diagram illustrates the **LangGraph-based AI workflow** in DataSage for answ
 
 The architecture of DataSage consists of:
 
-- **Frontend:** Built with Streamlit to provide a simple and effective UI for users to enter queries and visualize results.
+- **Frontend:** The frontend of DataSage is built using Streamlit, providing an intuitive and interactive interface for users to query and explore SQL data seamlessly. The UI is designed to be lightweight yet powerful, enabling both technical and non-technical users to interact with structured databases using natural language.
 
 - **Backend:** Built with Python and LangGraph, the backend handles query parsing, SQL execution, and AI-driven response generation. This demo features a tightly integrated agent execution within the Streamlit application. For a more scalable and production-ready architecture, consider [Designing a Robust and Secure GenAI RAG Architecture with React, Python FastAPI, and Azure](https://github.com/jonathanscholtes/Azure-AI-RAG-Architecture-React-FastAPI-and-Cosmos-DB-Vector-Store)
 
-- **Database:** Utilizes Azure SQL DB for storing and retrieving structured data.
+- **Database:** Uses Azure SQL DB serverless, a cost-effective and scalable solution for storing and retrieving structured data. The serverless model automatically scales compute resources based on demand, optimizing performance and cost. This ensures seamless query execution and data retrieval without the need for manual scaling or provisioning.
 
-- **AI Processing:** Azure AI Foundry processes and enhances the natural language interaction and response generation.
+- **AI Processing:** Azure AI Foundry offers a unified platform for enterprise AI operations, model development, and application integration, enabling chat completion, agent-driven intelligence, and model management. It enhances natural language understanding and response generation, ensuring accurate query interpretation and seamless AI-driven insights
 
 - **Infrastructure Deployment:** Powershell and Bicep scripts deploy and configure required Azure resources.
+
+![design](./media/design.png)
 
 
 ## Requirements

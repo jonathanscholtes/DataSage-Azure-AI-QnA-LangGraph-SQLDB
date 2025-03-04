@@ -27,7 +27,7 @@ if "query" not in st.session_state:
 
 # Sidebar with logo and description
 with st.sidebar:
-    st.image("images/logo.png", width=150)  # Replace with your actual logo file
+    st.image("images/logo.png", width=200)  # Replace with your actual logo file
     st.markdown("### DataSage")
     st.write(
         "DataSage uses Azure AI Foundry and LangGraph to answer questions "
@@ -41,6 +41,21 @@ with st.sidebar:
         st.session_state.query="What are the top 5 best selling products?"
     if st.button("Best-Selling Product Categories"):
         st.session_state.query="What are the best selling product categories?"
+
+    st.text("")
+   
+    st.markdown("---")
+    st.markdown(
+        """
+        <div style="font-size: 12px;">
+            <b>Disclaimer: Sample Application</b><br>
+            Please note that this sample application is provided for demonstration
+            purposes only and should not be used in production environments
+            without proper validation and testing.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Add a GitHub icon in the top-right corner
 github_link = """
