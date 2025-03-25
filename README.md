@@ -157,6 +157,16 @@ AZURE_SQL_CONNECTION_STRING="mssql+pymssql://sqlAdmin:sqlPassword@sql-agentqna-d
 AZURE_SQL_DATABASE_SCHEMA="SalesLT"
 ```
 
+#### 4.1 Capture Azure AI Key and Endpoint Environment Variables from the Azure AI Foundry Project  
+
+1. Launch **Azure AI Studio** from your **Azure AI Foundry** project.  
+2. Navigate to **Models + Endpoints** and select the deployed model, **gpt-4o**.  
+3. Under the **Details** section:  
+   - Copy the **Target URI** from the **Endpoint** field and set it as the value for the `AZURE_OPENAI_ENDPOINT` environment variable.  
+   - Copy the **Key** and assign it to the `AZURE_OPENAI_API_KEY` environment variable. 
+
+![endpoint](./media/project_endpoint.png)
+
 ### 5. Set Up and Run the Streamlit Application
 
 Navigate to the Streamlit application directory [src/app](src/app) and follow these steps:

@@ -26,12 +26,12 @@ module aiHub 'ai-hub.bicep' = {
   name: 'aihub'
   params:{
     aiHubName: 'hub-${projectName}-${environmentName}-${resourceToken}'
-    aiHubDescription: 'Hub for demo deepseek knowledge graph'
+    aiHubDescription: 'Hub for DataSage QnA'
     aiServicesId:aiServices.outputs.aiservicesID
     aiServicesTarget: aiServices.outputs.aiservicesTarget
     keyVaultId: keyVaultId
     location: location
-    aiHubFriendlyName: 'AI Game Graph Demo Hub'
+    aiHubFriendlyName: 'Hub for DataSage QnA'
   }
 }
 
@@ -41,8 +41,8 @@ module aiProject 'ai-project.bicep' = {
     aiHubResourceId:aiHub.outputs.aiHubID
     location: location
     aiProjectName: aiProjectName
-    aiProjectFriendlyName: 'AI Game Graph Demo Project'
-    aiProjectDescription: 'Project for demo game knowledge graph'    
+    aiProjectFriendlyName: 'DataSage QnA Demo Project'
+    aiProjectDescription: 'Project for demo DataSage QnA'    
   }
 }
 
