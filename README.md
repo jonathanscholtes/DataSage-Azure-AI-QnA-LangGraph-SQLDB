@@ -164,7 +164,7 @@ AZURE_SQL_DATABASE_SCHEMA="SalesLT"
    - Copy the **Language APIs** URL from the **OpenAI** section and set it as the value for the `AZURE_OPENAI_ENDPOINT` environment variable.  
    - Copy the **Key 1** and assign it to the `AZURE_OPENAI_API_KEY` environment variable. 
 
-![endpoint](./media/service_endpoint.png)
+![endpoint](./media/service_endpoint1.png)
 
 ### 5. Set Up and Run the Streamlit Application
 
