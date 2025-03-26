@@ -145,16 +145,29 @@ To do this, add your client IP address to the database firewall rules.
 
 To run DataSage, you need to create a .env file and populate it with the required environment variables. Follow these steps:
 
-1. In the Streamlit project under [src/app](src/app), create a new file named .env.
-2. Add the following variables and update them with your Azure service details (replace the placeholders with your Azure SQL DB username, password and Azure AI Service endpoint details):
+1. In the **Streamlit** project, navigate to the `[src/app](src/app)` directory.  
+2. Create a new file named `.env`.  
+3. Add the following environment variables to the `.env` file and replace the **placeholders** with your Azure service details:  
 
-```
-AZURE_OPENAI_API_KEY="Key from deployed Azure AI Service"
-AZURE_OPENAI_ENDPOINT="Endpoint from deployed Azure AI Service"
-AZURE_OPENAI_MODEL="gpt-4o"
-AZURE_OPENAI_API_VERSION="2024-08-01-preview"
-AZURE_SQL_CONNECTION_STRING="mssql+pymssql://sqlAdmin:sqlPassword@sql-agentqna-demo-[randomnumber].database.windows.net:1433/sqldb-agentqna"
-AZURE_SQL_DATABASE_SCHEMA="SalesLT"
+- **`AZURE_OPENAI_API_KEY`**: Replace with the **API Key** from your deployed Azure AI Service.  
+- **`AZURE_OPENAI_ENDPOINT`**: Replace with the **Endpoint URI** from your deployed Azure AI Service.  
+- **`AZURE_OPENAI_MODEL`**: the deployed model is `gpt-4o`.  
+- **`AZURE_OPENAI_API_VERSION`**: Use the version `2024-08-01-preview`.  
+- **`AZURE_SQL_CONNECTION_STRING`**: Replace the placeholders with your Azure SQL Database credentials:  
+  - `sqlAdmin`: Your SQL **username**.  
+  - `sqlPassword`: Your SQL **password**.  
+  - `sql-agentqna-demo-[randomnumber]`: Your **SQL server name**.  
+  - `sqldb-agentqna`: Your **database name**.  
+- **`AZURE_SQL_DATABASE_SCHEMA`**: The schema from the sample database is `SalesLT`.  
+
+✅ **Example `.env` file with placeholders replaced:**  
+```ini
+AZURE_OPENAI_API_KEY="abc1234xyz"  
+AZURE_OPENAI_ENDPOINT="https://your-openai-instance.openai.azure.com/"  
+AZURE_OPENAI_MODEL="gpt-4o"  
+AZURE_OPENAI_API_VERSION="2024-08-01-preview"  
+AZURE_SQL_CONNECTION_STRING="mssql+pymssql://sqlAdmin:MySecurePassword@sql-agentqna-demo-7890.database.windows.net:1433/sqldb-agentqna"  
+AZURE_SQL_DATABASE_SCHEMA="SalesLT"  
 ```
 
 #### 4.1 Capture Azure AI Key and Endpoint Environment Variables from the Azure AI Foundry Project  

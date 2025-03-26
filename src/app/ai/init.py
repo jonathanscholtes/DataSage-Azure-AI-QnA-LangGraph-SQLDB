@@ -5,7 +5,7 @@ from langchain_community.utilities import SQLDatabase
 from sqlalchemy import create_engine
 
 # Load environment variables from .env file
-load_dotenv(override=False)
+load_dotenv(override=True)
 
 # Initialize the AzureChatOpenAI model
 llm: AzureChatOpenAI | None = None
