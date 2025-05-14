@@ -71,7 +71,11 @@ components.html(github_link, height=50)
 def update_text():
     response_text = ""
     graph = RelationalDataSystem().create_graph()
-    graph.get_graph().draw_mermaid_png(output_file_path=image_path)
+
+    try:
+        graph.get_graph().draw_mermaid_png(output_file_path=image_path)
+    except Exception as e:
+        print(f'Unable to create graph with Mermaid ink: {e}')
 
     for step in graph.stream(
     {"question": query}, stream_mode="updates"
